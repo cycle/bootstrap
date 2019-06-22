@@ -9,12 +9,15 @@ declare(strict_types=1);
 
 namespace Cycle\Console;
 
+use Cycle\Annotated;
 use Cycle\Console\Exception\BootstrapException;
 use Cycle\ORM\Factory;
 use Cycle\ORM\ORM;
 use Cycle\ORM\ORMInterface;
 use Cycle\ORM\Promise\ProxyFactory;
-use Cycle\ORM\Schema;
+use Cycle\ORM\SchemaInterface;
+use Cycle\Schema;
+use Psr\Container\ContainerInterface;
 use Spiral\Core\Container;
 use Spiral\Database\Config\DatabaseConfig;
 use Spiral\Database\DatabaseManager;
@@ -59,40 +62,78 @@ final class Bootstrap
             throw new BootstrapException("Entity directory is not set");
         }
 
-        // database provider
-        $dbal = new DatabaseManager($cfg->getDatabaseConfig());
-
         // we can store some external deps with factory
         $container = new Container();
+        $container->bindSingleton(Config::class, $cfg);
+
         $container->bindSingleton(ClassesInterface::class, new ClassLocator(
             (new Finder())->in([$cfg->getEntityDirectory()])->files()
         ));
+
+        // database provider
+        $dbal = new DatabaseManager($cfg->getDatabaseConfig());
 
         $container->bindSingleton(DatabaseConfig::class, $cfg->getDatabaseConfig());
         $container->bindSingleton(DatabaseProviderInterface::class, $dbal);
         $container->bindSingleton(DatabaseManager::class, $dbal);
 
-        // load cached schema
-        $schema = null;
-        if ($cfg->getCacheFile() !== null) {
-            $schemaCache = include $cfg->getCacheFile();
-            if (is_array($schemaCache)) {
-                $schema = new Schema($schemaCache);
-            }
-        }
-
         $orm = new ORM(
-            new Factory(
-                $dbal,
-                null,
-                $container,
-                $container
-            ),
-            $schema
+            new Factory($dbal, null, $container, $container),
+            self::bootSchema($cfg, $container)
         );
 
         $orm = $orm->withPromiseFactory(new ProxyFactory());
 
         return $orm;
+    }
+
+    /**
+     * Store schema in cache if cache is set.
+     *
+     * @param Config          $cfg
+     * @param SchemaInterface $schema
+     */
+    public static function storeSchema(Config $cfg, SchemaInterface $schema)
+    {
+        if ($cfg->getCacheFile() === null) {
+            // nothing to store
+            return;
+        }
+
+        file_put_contents($cfg->getCacheFile(), '<?php ' . var_export($schema, true));
+    }
+
+    /**
+     * @param Config             $cfg
+     * @param ContainerInterface $container
+     * @return SchemaInterface
+     */
+    protected static function bootSchema(Config $cfg, ContainerInterface $container): SchemaInterface
+    {
+        if ($cfg->getCacheFile() !== null) {
+            if (file_exists($cfg->getCacheFile())) {
+                return require_once include $cfg->getCacheFile();
+            }
+        }
+
+        /** @var Schema\Registry $registry */
+        $registry = $container->get(Schema\Registry::class);
+        $cl = $container->get(ClassesInterface::class);
+
+        $schema = (new Schema\Compiler())->compile($registry, [
+            new Annotated\Embeddings($cl),
+            new Annotated\Entities($cl),
+            $container->get(Schema\Generator\ResetTables::class),
+            $container->get(Schema\Generator\GenerateRelations::class),
+            $container->get(Schema\Generator\ValidateEntities::class),
+            $container->get(Schema\Generator\RenderTables::class),
+            $container->get(Schema\Generator\RenderRelations::class),
+            $container->get(Schema\Generator\GenerateTypecast::class),
+        ]);
+
+        $schema = new \Cycle\ORM\Schema($schema);
+        self::storeSchema($cfg, $schema);
+
+        return $schema;
     }
 }

@@ -32,7 +32,7 @@ final class TableCommand extends Command
         ['table', InputArgument::REQUIRED, 'Table name']
     ];
     const OPTIONS     = [
-        ['database', 'db', InputOption::VALUE_OPTIONAL, 'Source database', 'default']
+        ['database', 'db', InputOption::VALUE_OPTIONAL, 'Source database', null]
     ];
 
     /**
