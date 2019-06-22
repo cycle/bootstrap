@@ -21,7 +21,7 @@ use Spiral\Tokenizer\ClassesInterface;
 
 final class SyncCommand extends Command
 {
-    public const NAME        = 'cycle:sync';
+    public const NAME        = 'schema:sync';
     public const DESCRIPTION = 'Sync ORM schema with database (generate tables)';
 
     /**

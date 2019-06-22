@@ -16,7 +16,7 @@ use Spiral\Console\Command;
 
 final class ListCommand extends Command
 {
-    const NAME        = 'cycle:entity';
+    const NAME        = 'entity:list';
     const DESCRIPTION = 'List of all available entities and their tables';
 
     /**

@@ -21,7 +21,7 @@ use Spiral\Tokenizer\ClassesInterface;
 
 final class UpdateCommand extends Command
 {
-    public const NAME        = 'cycle:update';
+    public const NAME        = 'schema:update';
     public const DESCRIPTION = 'Update ORM schema based on entity and relation annotations';
 
     /**

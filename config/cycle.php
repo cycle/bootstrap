@@ -20,4 +20,6 @@ $config = $config->withEntityDirectory(__DIR__ . DIRECTORY_SEPARATOR . '..' . DI
 // log all SQL messages to STDERR
 $config = $config->withLogger(new \Cycle\Console\StderrLogger(true));
 
+// enable schema cache (use /vendor/bin/cycle schema:update to flush cache)
+
 return $config;
