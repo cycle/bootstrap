@@ -1,5 +1,5 @@
 {
-  "name": "cycle/console",
+  "name": "cycle/cli",
   "type": "library",
   "license": "MIT",
   "description": "Standalone build of Cycle ORM for quick integrations",
