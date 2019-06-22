@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Cycle\Standalone;
+namespace Cycle\Console;
 
-use Cycle\Standalone\Exception\ConfigException;
+use Cycle\Console\Exception\ConfigException;
 use Spiral\Database\Config\DatabaseConfig;
 use Spiral\Database\Driver\MySQL\MySQLDriver;
 use Spiral\Database\Driver\Postgres\PostgresDriver;
@@ -52,7 +52,7 @@ final class Config
             return null;
         }
 
-        return $this->cacheDirectory . '/cycle-schema.php';
+        return $this->cacheDirectory . DIRECTORY_SEPARATOR . 'cycle-schema.php';
     }
 
     /**

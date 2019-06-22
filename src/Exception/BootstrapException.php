@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Cycle\Standalone\Exception;
+namespace Cycle\Console\Exception;
 
 class BootstrapException extends \RuntimeException
 {

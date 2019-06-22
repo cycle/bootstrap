@@ -7,21 +7,42 @@
  */
 declare(strict_types=1);
 
-namespace Cycle\Standalone;
+namespace Cycle\Console;
 
+use Cycle\Console\Exception\BootstrapException;
 use Cycle\ORM\Factory;
 use Cycle\ORM\ORM;
 use Cycle\ORM\ORMInterface;
+use Cycle\ORM\Promise\ProxyFactory;
 use Cycle\ORM\Schema;
-use Cycle\Standalone\Exception\BootstrapException;
 use Spiral\Core\Container;
+use Spiral\Database\Config\DatabaseConfig;
 use Spiral\Database\DatabaseManager;
+use Spiral\Database\DatabaseProviderInterface;
 use Spiral\Tokenizer\ClassesInterface;
 use Spiral\Tokenizer\ClassLocator;
 use Symfony\Component\Finder\Finder;
 
 final class Bootstrap
 {
+    /**
+     * @param string $file
+     * @return ORMInterface
+     */
+    public static function fromConfigFile(string $file): ORMInterface
+    {
+        if (!file_exists($file)) {
+            throw new BootstrapException("No such config file {$file}");
+        }
+
+        $config = require_once $file;
+        if (!$config instanceof Config) {
+            throw new BootstrapException("Invalid config file {$file}, expected `Cycle\Standalone\Config`");
+        }
+
+        return self::fromConfig($config);
+    }
+
     /**
      * Create ORM instance using provided config. Automatically indexes
      *
@@ -47,6 +68,10 @@ final class Bootstrap
             (new Finder())->in([$cfg->getEntityDirectory()])->files()
         ));
 
+        $container->bindSingleton(DatabaseConfig::class, $cfg->getDatabaseConfig());
+        $container->bindSingleton(DatabaseProviderInterface::class, $dbal);
+        $container->bindSingleton(DatabaseManager::class, $dbal);
+
         // load cached schema
         $schema = null;
         if ($cfg->getCacheFile() !== null) {
@@ -65,6 +90,8 @@ final class Bootstrap
             ),
             $schema
         );
+
+        $orm = $orm->withPromiseFactory(new ProxyFactory());
 
         return $orm;
     }
