@@ -104,7 +104,7 @@ final class Bootstrap
             return;
         }
 
-        file_put_contents($cfg->getCacheFile(), '<?php ' . var_export($schema, true));
+        file_put_contents($cfg->getCacheFile(), '<?php return ' . var_export($schema, true) . ';');
     }
 
     /**
@@ -116,7 +116,7 @@ final class Bootstrap
     {
         if ($cfg->getCacheFile() !== null) {
             if (file_exists($cfg->getCacheFile())) {
-                return require_once include $cfg->getCacheFile();
+                return require_once $cfg->getCacheFile();
             }
         }
 
