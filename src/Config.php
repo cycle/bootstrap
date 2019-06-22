@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Cycle\Console;
 
 use Cycle\Console\Exception\ConfigException;
+use Psr\Log\LoggerInterface;
 use Spiral\Database\Config\DatabaseConfig;
 use Spiral\Database\Driver\MySQL\MySQLDriver;
 use Spiral\Database\Driver\Postgres\PostgresDriver;
@@ -18,14 +19,17 @@ use Spiral\Database\Driver\SQLServer\SQLServerDriver;
 
 final class Config
 {
-    /** @var DatabaseConfig */
+    /** @var DatabaseConfig|null */
     private $dbalConfig;
 
-    /** @var string */
+    /** @var string|null */
     private $entityDirectory;
 
-    /** @var string */
+    /** @var string|null */
     private $cacheDirectory;
+
+    /** @var LoggerInterface|null */
+    private $logger;
 
     /**
      * @return DatabaseConfig|null
@@ -53,6 +57,14 @@ final class Config
         }
 
         return $this->cacheDirectory . DIRECTORY_SEPARATOR . 'cycle-schema.php';
+    }
+
+    /**
+     * @return LoggerInterface|null
+     */
+    public function getLogger(): ?LoggerInterface
+    {
+        return $this->logger;
     }
 
     /**
@@ -88,8 +100,6 @@ final class Config
     }
 
     /**
-     * Associate entity directory.
-     *
      * @param string $directory
      * @return Config
      */
@@ -106,8 +116,6 @@ final class Config
     }
 
     /**
-     * Associate cache directory.
-     *
      * @param string $directory
      * @return Config
      */
@@ -119,6 +127,18 @@ final class Config
 
         $cfg = clone $this;
         $cfg->cacheDirectory = $directory;
+
+        return $cfg;
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     * @return Config
+     */
+    public function withLogger(LoggerInterface $logger): Config
+    {
+        $cfg = clone $this;
+        $cfg->logger = $logger;
 
         return $cfg;
     }

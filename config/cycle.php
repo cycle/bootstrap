@@ -15,4 +15,9 @@ $config = Cycle\Console\Config::forDatabase(
 );
 
 // which directory contains our entities
-return $config->withEntityDirectory(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src');
+$config = $config->withEntityDirectory(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src');
+
+// log all SQL messages to STDERR
+$config = $config->withLogger(new \Cycle\Console\StderrLogger(true));
+
+return $config;

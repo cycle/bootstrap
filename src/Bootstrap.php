@@ -72,6 +72,10 @@ final class Bootstrap
 
         // database provider
         $dbal = new DatabaseManager($cfg->getDatabaseConfig());
+        if ($cfg->getLogger() !== null) {
+            $dbal->database()->getDriver()->setProfiling(true);
+            $dbal->database()->getDriver()->setLogger($cfg->getLogger());
+        }
 
         $container->bindSingleton(DatabaseConfig::class, $cfg->getDatabaseConfig());
         $container->bindSingleton(DatabaseProviderInterface::class, $dbal);
