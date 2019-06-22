@@ -77,6 +77,7 @@ final class Bootstrap
             $dbal->database()->getDriver()->setLogger($cfg->getLogger());
         }
 
+        // to be available for commands
         $container->bindSingleton(DatabaseConfig::class, $cfg->getDatabaseConfig());
         $container->bindSingleton(DatabaseProviderInterface::class, $dbal);
         $container->bindSingleton(DatabaseManager::class, $dbal);
