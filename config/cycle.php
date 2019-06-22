@@ -8,17 +8,17 @@
 declare(strict_types=1);
 
 // For single database
-$config = Cycle\Console\Config::forDatabase(
+$config = Cycle\Bootstrap\Config::forDatabase(
     'sqlite:database.db',
     '',
     ''
 );
 
 // which directory contains our entities
-$config = $config->withEntityDirectory(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src');
+$config = $config->withEntityDirectory(__DIR__ . DIRECTORY_SEPARATOR);
 
 // log all SQL messages to STDERR
-$config = $config->withLogger(new \Cycle\Console\StderrLogger(true));
+$config = $config->withLogger(new \Cycle\Bootstrap\StderrLogger(true));
 
 // enable schema cache (use /vendor/bin/cycle schema:update to flush cache)
 //$config = $config->withCacheDirectory(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'cache');

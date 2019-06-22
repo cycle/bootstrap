@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Cycle\Console\Command\Database;
+namespace Cycle\Bootstrap\Command\Database;
 
 use Spiral\Console\Command;
 use Spiral\Database\Config\DatabaseConfig;

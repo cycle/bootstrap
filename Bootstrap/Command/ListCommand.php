@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Cycle\Console\Command;
+namespace Cycle\Bootstrap\Command;
 
 use Cycle\ORM\ORMInterface;
 use Cycle\ORM\Schema;

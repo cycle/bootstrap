@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Cycle\Console;
+namespace Cycle\Bootstrap;
 
-use Cycle\Console\Exception\ConfigException;
+use Cycle\Bootstrap\Exception\ConfigException;
 use Psr\Log\LoggerInterface;
 use Spiral\Database\Config\DatabaseConfig;
 use Spiral\Database\Driver\MySQL\MySQLDriver;

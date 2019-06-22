@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Cycle\Console\Command\Generator;
+namespace Cycle\Bootstrap\Command\Generator;
 
 use Cycle\Schema\GeneratorInterface;
 use Cycle\Schema\Registry;

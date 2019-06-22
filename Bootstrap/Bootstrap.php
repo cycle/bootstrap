@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Cycle\Console;
+namespace Cycle\Bootstrap;
 
 use Cycle\Annotated;
-use Cycle\Console\Exception\BootstrapException;
+use Cycle\Bootstrap\Exception\BootstrapException;
 use Cycle\ORM\Factory;
 use Cycle\ORM\ORM;
 use Cycle\ORM\ORMInterface;

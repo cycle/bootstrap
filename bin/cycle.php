@@ -41,4 +41,4 @@ return $orm;');
     die(1);
 }
 
-\Cycle\Console\App::run($orm);
+\Cycle\Bootstrap\App::run($orm);

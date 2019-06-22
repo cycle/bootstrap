@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Cycle\Console\Command;
+namespace Cycle\Bootstrap\Command;
 
 use Cycle\Annotated;
-use Cycle\Console\Bootstrap;
-use Cycle\Console\Command\Generator\ShowChanges;
-use Cycle\Console\Config;
+use Cycle\Bootstrap\Bootstrap;
+use Cycle\Bootstrap\Command\Generator\ShowChanges;
+use Cycle\Bootstrap\Config;
 use Cycle\Schema;
 use Cycle\Schema\Registry;
 use Psr\Container\ContainerInterface;

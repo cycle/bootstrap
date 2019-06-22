@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Cycle\Console;
+namespace Cycle\Bootstrap;
 
-use Cycle\Console\Command\Database;
-use Cycle\Console\Command\ListCommand;
-use Cycle\Console\Command\SyncCommand;
-use Cycle\Console\Command\UpdateCommand;
+use Cycle\Bootstrap\Command\Database;
+use Cycle\Bootstrap\Command\ListCommand;
+use Cycle\Bootstrap\Command\SyncCommand;
+use Cycle\Bootstrap\Command\UpdateCommand;
 use Cycle\ORM\ORMInterface;
 use Spiral\Console\Config\ConsoleConfig;
 use Spiral\Console\Console;

@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Cycle\Console\Exception;
+namespace Cycle\Bootstrap\Exception;
 
-class ConfigException extends \LogicException
+class BootstrapException extends \RuntimeException
 {
 
 }
