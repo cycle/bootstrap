@@ -6,7 +6,7 @@
   "require": {
     "cycle/orm": "^1.1",
     "cycle/proxy-factory": "^1.0",
-    "cycle/annotated": "^1.0",
+    "cycle/annotated": "^2.0",
     "spiral/console": "^1.2"
   },
   "autoload": {
