@@ -14,7 +14,11 @@ use Cycle\Bootstrap\Exception\BootstrapException;
 use Cycle\ORM\Factory;
 use Cycle\ORM\ORM;
 use Cycle\ORM\ORMInterface;
+use Cycle\ORM\Promise\ConflictResolver;
+use Cycle\ORM\Promise\Declaration\Extractor;
+use Cycle\ORM\Promise\Printer;
 use Cycle\ORM\Promise\ProxyFactory;
+use Cycle\ORM\Promise\Traverser;
 use Cycle\ORM\SchemaInterface;
 use Cycle\Schema;
 use Psr\Container\ContainerInterface;
@@ -87,7 +91,10 @@ final class Bootstrap
             self::bootSchema($cfg, $container)
         );
 
-        $orm = $orm->withPromiseFactory(new ProxyFactory());
+        $traverser = new Traverser();
+        $extractor = new Extractor(new Extractor\Constants(), new Extractor\Properties(), new Extractor\Methods($traverser));
+        $printer = new Printer($extractor, $traverser, new ConflictResolver());
+        $orm = $orm->withPromiseFactory(new ProxyFactory($extractor, $printer));
 
         return $orm;
     }
