@@ -1,14 +1,15 @@
 <?php
+
 /**
- * Spiral Framework.
+ * Cycle ORM CLI bootstrap.
  *
- * @license   MIT
- * @author    Anton Titov (Wolfy-J)
+ * @license MIT
+ * @author  Anton Titov (Wolfy-J)
  */
 
-use Cycle\Bootstrap\StderrLogger;
-
 declare(strict_types=1);
+
+use Cycle\Bootstrap\StderrLogger;
 
 // For single database
 $config = Cycle\Bootstrap\Config::forDatabase(

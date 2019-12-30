@@ -1,10 +1,12 @@
 <?php
+
 /**
- * Cycle ORM
+ * Cycle ORM CLI bootstrap.
  *
- * @license   MIT
- * @author    Anton Titov (Wolfy-J)
+ * @license MIT
+ * @author  Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Cycle\Bootstrap;
@@ -14,11 +16,7 @@ use Cycle\Bootstrap\Exception\BootstrapException;
 use Cycle\ORM\Factory;
 use Cycle\ORM\ORM;
 use Cycle\ORM\ORMInterface;
-use Cycle\ORM\Promise\ConflictResolver;
-use Cycle\ORM\Promise\Declaration\Extractor;
-use Cycle\ORM\Promise\Printer;
 use Cycle\ORM\Promise\ProxyFactory;
-use Cycle\ORM\Promise\Traverser;
 use Cycle\ORM\SchemaInterface;
 use Cycle\Schema;
 use Psr\Container\ContainerInterface;
@@ -29,12 +27,14 @@ use Spiral\Database\DatabaseProviderInterface;
 use Spiral\Tokenizer\ClassesInterface;
 use Spiral\Tokenizer\ClassLocator;
 use Symfony\Component\Finder\Finder;
+use Throwable;
 
 final class Bootstrap
 {
     /**
      * @param string $file
      * @return ORMInterface
+     * @throws Throwable
      */
     public static function fromConfigFile(string $file): ORMInterface
     {
@@ -55,6 +55,7 @@ final class Bootstrap
      *
      * @param Config $cfg
      * @return ORMInterface
+     * @throws Throwable
      */
     public static function fromConfig(Config $cfg): ORMInterface
     {
@@ -77,8 +78,14 @@ final class Bootstrap
         // database provider
         $dbal = new DatabaseManager($cfg->getDatabaseConfig());
         if ($cfg->getLogger() !== null) {
-            $dbal->database()->getDriver()->setProfiling(true);
-            $dbal->database()->getDriver()->setLogger($cfg->getLogger());
+            $driver = $dbal->database()->getDriver();
+            if (method_exists($driver, 'setProfiling')) {
+                $driver->setProfiling(true);
+            }
+
+            if (method_exists($driver, 'setLogger')) {
+                $driver->setLogger($cfg->getLogger());
+            }
         }
 
         // to be available for commands
@@ -91,10 +98,7 @@ final class Bootstrap
             self::bootSchema($cfg, $container)
         );
 
-        $traverser = new Traverser();
-        $extractor = new Extractor(new Extractor\Constants(), new Extractor\Properties(), new Extractor\Methods($traverser));
-        $printer = new Printer($extractor, $traverser, new ConflictResolver());
-        $orm = $orm->withPromiseFactory(new ProxyFactory($extractor, $printer));
+        $orm = $orm->withPromiseFactory($container->get(ProxyFactory::class));
 
         return $orm;
     }

@@ -1,10 +1,12 @@
 <?php
+
 /**
- * Spiral Framework.
+ * Cycle ORM CLI bootstrap.
  *
- * @license   MIT
- * @author    Anton Titov (Wolfy-J)
+ * @license MIT
+ * @author  Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Cycle\Bootstrap\Command\Generator;
@@ -66,6 +68,14 @@ final class ShowChanges implements GeneratorInterface
         }
 
         return $registry;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasChanges(): bool
+    {
+        return $this->changes !== [];
     }
 
     /**
@@ -177,13 +187,5 @@ final class ShowChanges implements GeneratorInterface
             + count($cmp->addedForeignKeys())
             + count($cmp->droppedForeignKeys())
             + count($cmp->alteredForeignKeys());
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasChanges(): bool
-    {
-        return $this->changes !== [];
     }
 }

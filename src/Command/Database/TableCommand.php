@@ -1,10 +1,12 @@
 <?php
+
 /**
- * Spiral Framework.
+ * Cycle ORM CLI bootstrap.
  *
- * @license   MIT
- * @author    Anton Titov (Wolfy-J)
+ * @license MIT
+ * @author  Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Cycle\Bootstrap\Command\Database;
@@ -22,11 +24,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 final class TableCommand extends Command
 {
-    /**
-     * No information available placeholder.
-     */
-    private const SKIP = '<comment>---</comment>';
-
     protected const NAME        = 'db:table';
     protected const DESCRIPTION = 'Describe table schema of specific database';
     protected const ARGUMENTS = [
@@ -35,6 +32,11 @@ final class TableCommand extends Command
     protected const OPTIONS   = [
         ['database', 'db', InputOption::VALUE_OPTIONAL, 'Source database', null]
     ];
+
+    /**
+     * No information available placeholder.
+     */
+    private const SKIP = '<comment>---</comment>';
 
     /**
      * @param DatabaseManager $dbal
@@ -161,6 +163,25 @@ final class TableCommand extends Command
 
     /**
      * @param AbstractColumn $column
+     * @return string|null
+     */
+    protected function describeDefaultValue(AbstractColumn $column): ?string
+    {
+        $defaultValue = $column->getDefaultValue();
+
+        if ($defaultValue instanceof FragmentInterface) {
+            $defaultValue = "<info>{$defaultValue}</info>";
+        }
+
+        if ($defaultValue instanceof DateTimeInterface) {
+            $defaultValue = $defaultValue->format('c');
+        }
+
+        return $defaultValue;
+    }
+
+    /**
+     * @param AbstractColumn $column
      * @return string
      */
     private function describeType(AbstractColumn $column): string
@@ -193,24 +214,5 @@ final class TableCommand extends Command
         }
 
         return $abstractType;
-    }
-
-    /**
-     * @param AbstractColumn $column
-     * @return string|null
-     */
-    protected function describeDefaultValue(AbstractColumn $column): ?string
-    {
-        $defaultValue = $column->getDefaultValue();
-
-        if ($defaultValue instanceof FragmentInterface) {
-            $defaultValue = "<info>{$defaultValue}</info>";
-        }
-
-        if ($defaultValue instanceof DateTimeInterface) {
-            $defaultValue = $defaultValue->format('c');
-        }
-
-        return $defaultValue;
     }
 }

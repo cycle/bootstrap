@@ -1,4 +1,5 @@
 <?php
+
 // Cycle bootstrap
 declare(strict_types=1);
 

@@ -2,12 +2,15 @@
 <?php
 /**
  * Cycle ORM CLI bootstrap.
+ *
+ * @license MIT
+ * @author  Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 use Cycle\Bootstrap\App;
 use Cycle\ORM\ORMInterface;
 
-declare(strict_types=1);
 
 foreach ([
              __DIR__ . '/../../vendor/autoload.php',

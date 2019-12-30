@@ -1,10 +1,12 @@
 <?php
+
 /**
- * Spiral Framework.
+ * Cycle ORM CLI bootstrap.
  *
- * @license   MIT
- * @author    Anton Titov (Wolfy-J)
+ * @license MIT
+ * @author  Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Cycle\Bootstrap;
@@ -46,7 +48,7 @@ final class App
 
         $scope->runScope([
             ORMInterface::class => $orm
-        ], static function () use ($cli) {
+        ], static function () use ($cli): void {
             $cli->start();
         });
     }

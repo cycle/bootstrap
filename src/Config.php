@@ -1,10 +1,12 @@
 <?php
+
 /**
- * Cycle ORM
+ * Cycle ORM CLI bootstrap.
  *
- * @license   MIT
- * @author    Anton Titov (Wolfy-J)
+ * @license MIT
+ * @author  Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Cycle\Bootstrap;
@@ -30,6 +32,23 @@ final class Config
 
     /** @var LoggerInterface|null */
     private $logger;
+
+    /**
+     * Config constructor.
+     */
+    private function __construct()
+    {
+    }
+
+    /**
+     * Isolate.
+     */
+    private function __clone()
+    {
+        if ($this->dbalConfig !== null) {
+            $this->dbalConfig = clone $this->dbalConfig;
+        }
+    }
 
     /**
      * @return DatabaseConfig|null
@@ -141,24 +160,6 @@ final class Config
         $cfg->logger = $logger;
 
         return $cfg;
-    }
-
-    /**
-     * Config constructor.
-     */
-    private function __construct()
-    {
-
-    }
-
-    /**
-     * Isolate.
-     */
-    private function __clone()
-    {
-        if ($this->dbalConfig !== null) {
-            $this->dbalConfig = clone $this->dbalConfig;
-        }
     }
 
     /**

@@ -1,10 +1,12 @@
 <?php
+
 /**
- * Spiral Framework.
+ * Cycle ORM CLI bootstrap.
  *
- * @license   MIT
- * @author    Anton Titov (Wolfy-J)
+ * @license MIT
+ * @author  Anton Titov (Wolfy-J)
  */
+
 declare(strict_types=1);
 
 namespace Cycle\Bootstrap\Command\Database;
@@ -22,16 +24,16 @@ use Throwable;
 
 final class ListCommand extends Command
 {
-    /**
-     * No information available placeholder.
-     */
-    private const SKIP = '<comment>---</comment>';
-
     protected const NAME        = 'db:list';
     protected const DESCRIPTION = 'Get list of available databases, their tables and records count';
     protected const ARGUMENTS   = [
         ['db', InputArgument::OPTIONAL, 'Database name']
     ];
+
+    /**
+     * No information available placeholder.
+     */
+    private const SKIP = '<comment>---</comment>';
 
     /**
      * @param DatabaseConfig  $config
