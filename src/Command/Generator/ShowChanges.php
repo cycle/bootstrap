@@ -37,7 +37,7 @@ final class ShowChanges implements GeneratorInterface
      */
     public function run(Registry $registry): Registry
     {
-        $this->output->writeln("<info>Detecting schema changes:</info>");
+        $this->output->writeln('<info>Detecting schema changes:</info>');
 
         $this->changes = [];
         foreach ($registry->getIterator() as $e) {
@@ -55,13 +55,13 @@ final class ShowChanges implements GeneratorInterface
         }
 
         if ($this->changes === []) {
-            $this->output->writeln("<fg=yellow>no database changes has been detected</fg=yellow>");
+            $this->output->writeln('<fg=yellow>no database changes has been detected</fg=yellow>');
 
             return $registry;
         }
 
         foreach ($this->changes as $change) {
-            $this->output->write(sprintf("• <fg=cyan>%s.%s</fg=cyan>", $change['database'], $change['table']));
+            $this->output->write(sprintf('• <fg=cyan>%s.%s</fg=cyan>', $change['database'], $change['table']));
             $this->describeChanges($change['schema']);
         }
 
@@ -71,25 +71,25 @@ final class ShowChanges implements GeneratorInterface
     /**
      * @param AbstractTable $table
      */
-    protected function describeChanges(AbstractTable $table)
+    protected function describeChanges(AbstractTable $table): void
     {
         if (!$this->output->isVerbose()) {
             $this->output->writeln(sprintf(
-                ": <fg=green>%s</fg=green> change(s) detected",
+                ': <fg=green>%s</fg=green> change(s) detected',
                 $this->numChanges($table)
             ));
 
             return;
-        } else {
-            $this->output->write("\n");
         }
 
+        $this->output->write("\n");
+
         if (!$table->exists()) {
-            $this->output->writeln("    - create table");
+            $this->output->writeln('    - create table');
         }
 
         if ($table->getStatus() === AbstractTable::STATUS_DECLARED_DROPPED) {
-            $this->output->writeln("    - drop table");
+            $this->output->writeln('    - drop table');
             return;
         }
 
@@ -103,7 +103,7 @@ final class ShowChanges implements GeneratorInterface
     /**
      * @param Comparator $cmp
      */
-    protected function describeColumns(Comparator $cmp)
+    protected function describeColumns(Comparator $cmp): void
     {
         foreach ($cmp->addedColumns() as $column) {
             $this->output->writeln("    - add column <fg=yellow>{$column->getName()}</fg=yellow>");
@@ -122,21 +122,21 @@ final class ShowChanges implements GeneratorInterface
     /**
      * @param Comparator $cmp
      */
-    protected function describeIndexes(Comparator $cmp)
+    protected function describeIndexes(Comparator $cmp): void
     {
         foreach ($cmp->addedIndexes() as $index) {
-            $index = join(', ', $index->getColumns());
+            $index = implode(', ', $index->getColumns());
             $this->output->writeln("    - add index on <fg=yellow>[{$index}]</fg=yellow>");
         }
 
         foreach ($cmp->droppedIndexes() as $index) {
-            $index = join(', ', $index->getColumns());
+            $index = implode(', ', $index->getColumns());
             $this->output->writeln("    - drop index on <fg=yellow>[{$index}]</fg=yellow>");
         }
 
         foreach ($cmp->alteredIndexes() as $index) {
             $index = $index[0];
-            $index = join(', ', $index->getColumns());
+            $index = implode(', ', $index->getColumns());
             $this->output->writeln("    - alter index on <fg=yellow>[{$index}]</fg=yellow>");
         }
     }
@@ -144,7 +144,7 @@ final class ShowChanges implements GeneratorInterface
     /**
      * @param Comparator $cmp
      */
-    protected function describeFKs(Comparator $cmp)
+    protected function describeFKs(Comparator $cmp): void
     {
         foreach ($cmp->addedForeignKeys() as $fk) {
             $this->output->writeln("    - add foreign key on <fg=yellow>{$fk->getColumn()}</fg=yellow>");

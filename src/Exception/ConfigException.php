@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace Cycle\Bootstrap\Exception;
 
-class ConfigException extends \LogicException
+use LogicException;
+
+class ConfigException extends LogicException
 {
 
 }

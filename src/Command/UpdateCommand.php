@@ -21,8 +21,8 @@ use Spiral\Tokenizer\ClassesInterface;
 
 final class UpdateCommand extends Command
 {
-    public const NAME        = 'schema:update';
-    public const DESCRIPTION = 'Update ORM schema based on entity and relation annotations';
+    protected const NAME        = 'schema:update';
+    protected const DESCRIPTION = 'Update ORM schema based on entity and relation annotations';
 
     /**
      * @param ContainerInterface $container
@@ -35,7 +35,7 @@ final class UpdateCommand extends Command
         Config $cfg,
         Registry $registry,
         ClassesInterface $cl
-    ) {
+    ): void {
         $show = new ShowChanges($this->output);
 
         $schema = (new Schema\Compiler())->compile($registry, [

@@ -21,8 +21,8 @@ use Spiral\Tokenizer\ClassesInterface;
 
 final class SyncCommand extends Command
 {
-    public const NAME        = 'schema:sync';
-    public const DESCRIPTION = 'Sync ORM schema with database (generate tables)';
+    protected const NAME        = 'schema:sync';
+    protected const DESCRIPTION = 'Sync ORM schema with database (generate tables)';
 
     /**
      * @param ContainerInterface $container
@@ -35,7 +35,7 @@ final class SyncCommand extends Command
         Config $cfg,
         Registry $registry,
         ClassesInterface $cl
-    ) {
+    ): void {
         $show = new ShowChanges($this->output);
 
         $schema = (new Schema\Compiler())->compile($registry, [

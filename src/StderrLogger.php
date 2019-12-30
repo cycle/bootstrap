@@ -33,15 +33,15 @@ final class StderrLogger implements LoggerInterface
      * @param string $message
      * @param array  $context
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         if (!$this->enableColors) {
             error_log('> ' . $message);
         }
 
-        if ($level == LogLevel::ERROR) {
+        if ($level === LogLevel::ERROR) {
             error_log("! \033[31m" . $message . "\033[0m");
-        } elseif ($level == LogLevel::ALERT) {
+        } elseif ($level === LogLevel::ALERT) {
             error_log("! \033[35m" . $message . "\033[0m");
         } elseif (strpos($message, 'SHOW') === 0) {
             error_log("> \033[34m" . $message . "\033[0m");
@@ -64,17 +64,12 @@ final class StderrLogger implements LoggerInterface
     protected function isPostgresSystemQuery(string $query): bool
     {
         $query = strtolower($query);
-        if (
-            strpos($query, 'tc.constraint_name')
+
+        return strpos($query, 'tc.constraint_name')
             || strpos($query, 'pg_indexes')
             || strpos($query, 'tc.constraint_name')
             || strpos($query, 'pg_constraint')
             || strpos($query, 'information_schema')
-            || strpos($query, 'pg_class')
-        ) {
-            return true;
-        }
-
-        return false;
+            || strpos($query, 'pg_class');
     }
 }

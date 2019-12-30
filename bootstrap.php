@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Doctrine\Common\Annotations\AnnotationRegisty;
 
-require_once "vendor/autoload.php";
+require_once 'vendor/autoload.php';
 
 AnnotationRegistry::registerLoader('class_exists');
 

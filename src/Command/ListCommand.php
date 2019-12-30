@@ -16,13 +16,13 @@ use Spiral\Console\Command;
 
 final class ListCommand extends Command
 {
-    const NAME        = 'entity:list';
-    const DESCRIPTION = 'List of all available entities and their tables';
+    protected const NAME        = 'entity:list';
+    protected const DESCRIPTION = 'List of all available entities and their tables';
 
     /**
      * @param ORMInterface $orm
      */
-    public function perform(ORMInterface $orm)
+    public function perform(ORMInterface $orm): void
     {
         $grid = $this->table([
             'Role:',
@@ -34,7 +34,7 @@ final class ListCommand extends Command
         ]);
 
         if ($orm->getSchema()->getRoles() === []) {
-            $this->sprintf("<info>No entity were found</info>");
+            $this->sprintf('<info>No entity were found</info>');
             return;
         }
 
@@ -57,8 +57,8 @@ final class ListCommand extends Command
             $schema->define($role, Schema::ENTITY),
             $schema->define($role, Schema::TABLE),
             $schema->define($role, Schema::REPOSITORY),
-            join(", ", array_keys($schema->define($role, Schema::COLUMNS))),
-            join(", ", array_keys($schema->define($role, Schema::RELATIONS))),
+            implode(', ', array_keys($schema->define($role, Schema::COLUMNS))),
+            implode(', ', array_keys($schema->define($role, Schema::RELATIONS))),
         ];
     }
 }

@@ -5,6 +5,9 @@
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+
+use Cycle\Bootstrap\StderrLogger;
+
 declare(strict_types=1);
 
 // For single database
@@ -18,7 +21,7 @@ $config = Cycle\Bootstrap\Config::forDatabase(
 $config = $config->withEntityDirectory(__DIR__ . DIRECTORY_SEPARATOR);
 
 // log all SQL messages to STDERR
-$config = $config->withLogger(new \Cycle\Bootstrap\StderrLogger(true));
+$config = $config->withLogger(new StderrLogger(true));
 
 // enable schema cache (use /vendor/bin/cycle schema:update to flush cache)
 //$config = $config->withCacheDirectory(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'cache');

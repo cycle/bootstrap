@@ -3,6 +3,10 @@
 /**
  * Cycle ORM CLI bootstrap.
  */
+
+use Cycle\Bootstrap\App;
+use Cycle\ORM\ORMInterface;
+
 declare(strict_types=1);
 
 foreach ([
@@ -28,7 +32,7 @@ foreach ($dirs as $directory) {
     }
 }
 
-if (!$orm instanceof \Cycle\ORM\ORMInterface) {
+if (!$orm instanceof ORMInterface) {
     fwrite(
         STDERR,
         'Unable to find Cycle bootloader in "config/cycle-cli.php", use the given template:
@@ -41,4 +45,4 @@ return $orm;');
     die(1);
 }
 
-\Cycle\Bootstrap\App::run($orm);
+App::run($orm);

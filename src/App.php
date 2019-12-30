@@ -17,16 +17,17 @@ use Cycle\ORM\ORMInterface;
 use Spiral\Console\Config\ConsoleConfig;
 use Spiral\Console\Console;
 use Spiral\Core\ScopeInterface;
+use Throwable;
 
 final class App
 {
     /**
      * @param ORMInterface $orm
-     * @throws \Throwable
+     * @throws Throwable
      */
-    public static function run(ORMInterface $orm)
+    public static function run(ORMInterface $orm): void
     {
-        /** @var \Spiral\Console\Console $cli */
+        /** @var Console $cli */
         $cli = $orm->getFactory()->make(Console::class, [
             'config' => new ConsoleConfig([
                 'name'     => 'Cycle Console Toolkit',
@@ -45,7 +46,7 @@ final class App
 
         $scope->runScope([
             ORMInterface::class => $orm
-        ], function () use ($cli) {
+        ], static function () use ($cli) {
             $cli->start();
         });
     }

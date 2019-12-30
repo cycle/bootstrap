@@ -55,11 +55,11 @@ final class Bootstrap
     public static function fromConfig(Config $cfg): ORMInterface
     {
         if ($cfg->getDatabaseConfig() === null) {
-            throw new BootstrapException("DatabaseConfig is not set");
+            throw new BootstrapException('DatabaseConfig is not set');
         }
 
         if ($cfg->getEntityDirectory() === null) {
-            throw new BootstrapException("Entity directory is not set");
+            throw new BootstrapException('Entity directory is not set');
         }
 
         // we can store some external deps with factory
@@ -98,7 +98,7 @@ final class Bootstrap
      * @param Config          $cfg
      * @param SchemaInterface $schema
      */
-    public static function storeSchema(Config $cfg, SchemaInterface $schema)
+    public static function storeSchema(Config $cfg, SchemaInterface $schema): void
     {
         if ($cfg->getCacheFile() === null) {
             // nothing to store
@@ -115,10 +115,8 @@ final class Bootstrap
      */
     protected static function bootSchema(Config $cfg, ContainerInterface $container): SchemaInterface
     {
-        if ($cfg->getCacheFile() !== null) {
-            if (file_exists($cfg->getCacheFile())) {
-                return require_once $cfg->getCacheFile();
-            }
+        if (($cfg->getCacheFile() !== null) && file_exists($cfg->getCacheFile())) {
+            return require_once $cfg->getCacheFile();
         }
 
         /** @var Schema\Registry $registry */

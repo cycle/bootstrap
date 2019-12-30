@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace Cycle\Bootstrap\Exception;
 
-class BootstrapException extends \RuntimeException
+use RuntimeException;
+
+class BootstrapException extends RuntimeException
 {
 
 }
