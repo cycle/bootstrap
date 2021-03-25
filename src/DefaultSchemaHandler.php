@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Cycle\Bootstrap;
 
-use Cycle\ORM\Schema;
+use Cycle\ORM\SchemaInterface;
 
 final class DefaultSchemaHandler implements SchemaHandlerInterface
 {
@@ -29,7 +29,7 @@ final class DefaultSchemaHandler implements SchemaHandlerInterface
         $this->cfg = $cfg;
     }
 
-    public function handle(Schema $schema): void
+    public function handle(SchemaInterface $schema): void
     {
         Bootstrap::storeSchema($this->cfg, $schema);
     }

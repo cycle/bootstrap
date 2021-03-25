@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Cycle\Bootstrap;
 
-use Cycle\ORM\Schema;
+use Cycle\ORM\SchemaInterface;
 
 interface SchemaHandlerInterface
 {
     /**
-     * @param Schema $schema
+     * @param SchemaInterface $schema
      */
-    public function handle(Schema $schema): void;
+    public function handle(SchemaInterface $schema): void;
 }
