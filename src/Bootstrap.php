@@ -92,6 +92,7 @@ final class Bootstrap
         $container->bindSingleton(DatabaseConfig::class, $cfg->getDatabaseConfig());
         $container->bindSingleton(DatabaseProviderInterface::class, $dbal);
         $container->bindSingleton(DatabaseManager::class, $dbal);
+        $container->bindSingleton(SchemaHandlerInterface::class, new DefaultSchemaHandler($cfg));
 
         $orm = new ORM(
             new Factory($dbal, null, $container, $container),
