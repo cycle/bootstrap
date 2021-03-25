@@ -13,7 +13,7 @@ namespace Cycle\Bootstrap\Command;
 
 use Cycle\Annotated;
 use Cycle\Bootstrap\Command\Generator\ShowChanges;
-use Cycle\Bootstrap\DefaultSchemaHandler;
+use Cycle\Bootstrap\SchemaHandlerInterface;
 use Cycle\Schema;
 use Cycle\Schema\Registry;
 use Spiral\Console\Command;
@@ -27,13 +27,13 @@ final class UpdateCommand extends Command
     /**
      * @param Registry $registry
      * @param ClassesInterface $cl
-     * @param DefaultSchemaHandler $handler
+     * @param SchemaHandlerInterface $handler
      * @throws \Throwable
      */
     public function perform(
         Registry $registry,
         ClassesInterface $cl,
-        DefaultSchemaHandler $handler
+        SchemaHandlerInterface $handler
     ): void {
         $show = new ShowChanges($this->output);
 
