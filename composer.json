@@ -4,7 +4,7 @@
   "license": "MIT",
   "description": "Standalone build of Cycle ORM for quick integrations",
   "require": {
-    "cycle/orm": "^1.1",
+    "cycle/orm": "^2.0.x-dev",
     "cycle/proxy-factory": "^1.2",
     "cycle/annotated": "^2.0",
     "spiral/console": "^1.3"
