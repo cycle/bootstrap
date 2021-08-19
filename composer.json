@@ -4,8 +4,8 @@
   "license": "MIT",
   "description": "Standalone build of Cycle ORM for quick integrations",
   "require": {
-    "cycle/orm": "^2.0.x-dev",
-    "cycle/annotated": "^2.0",
+    "cycle/orm": "2.0.x-dev",
+    "cycle/annotated": "2.0.x-dev",
     "spiral/console": "^v2.8"
   },
   "autoload": {
