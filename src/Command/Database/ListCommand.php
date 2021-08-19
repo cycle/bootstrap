@@ -13,10 +13,10 @@ namespace Cycle\Bootstrap\Command\Database;
 
 use Exception;
 use Spiral\Console\Command;
-use Spiral\Database\Config\DatabaseConfig;
-use Spiral\Database\Database;
-use Spiral\Database\DatabaseManager;
-use Spiral\Database\Driver\Driver;
+use Cycle\Database\Config\DatabaseConfig;
+use Cycle\Database\Database;
+use Cycle\Database\DatabaseManager;
+use Cycle\Database\Driver\Driver;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Input\InputArgument;

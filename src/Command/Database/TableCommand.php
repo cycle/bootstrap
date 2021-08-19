@@ -13,12 +13,12 @@ namespace Cycle\Bootstrap\Command\Database;
 
 use DateTimeInterface;
 use Spiral\Console\Command;
-use Spiral\Database\Database;
-use Spiral\Database\DatabaseManager;
-use Spiral\Database\Exception\DBALException;
-use Spiral\Database\Injection\FragmentInterface;
-use Spiral\Database\Schema\AbstractColumn;
-use Spiral\Database\Schema\AbstractTable;
+use Cycle\Database\Database;
+use Cycle\Database\DatabaseManager;
+use Cycle\Database\Exception\DBALException;
+use Cycle\Database\Injection\FragmentInterface;
+use Cycle\Database\Schema\AbstractColumn;
+use Cycle\Database\Schema\AbstractTable;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 

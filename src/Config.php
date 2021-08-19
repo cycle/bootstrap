@@ -13,11 +13,11 @@ namespace Cycle\Bootstrap;
 
 use Cycle\Bootstrap\Exception\ConfigException;
 use Psr\Log\LoggerInterface;
-use Spiral\Database\Config\DatabaseConfig;
-use Spiral\Database\Driver\MySQL\MySQLDriver;
-use Spiral\Database\Driver\Postgres\PostgresDriver;
-use Spiral\Database\Driver\SQLite\SQLiteDriver;
-use Spiral\Database\Driver\SQLServer\SQLServerDriver;
+use Cycle\Database\Config\DatabaseConfig;
+use Cycle\Database\Driver\MySQL\MySQLDriver;
+use Cycle\Database\Driver\Postgres\PostgresDriver;
+use Cycle\Database\Driver\SQLite\SQLiteDriver;
+use Cycle\Database\Driver\SQLServer\SQLServerDriver;
 
 final class Config
 {
