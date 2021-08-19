@@ -16,7 +16,6 @@ use Cycle\Bootstrap\Exception\BootstrapException;
 use Cycle\ORM\Factory;
 use Cycle\ORM\ORM;
 use Cycle\ORM\ORMInterface;
-use Cycle\ORM\Promise\ProxyFactory;
 use Cycle\ORM\SchemaInterface;
 use Cycle\Schema;
 use Psr\Container\ContainerInterface;
@@ -94,14 +93,10 @@ final class Bootstrap
         $container->bindSingleton(DatabaseManager::class, $dbal);
         $container->bindSingleton(SchemaHandlerInterface::class, new DefaultSchemaHandler($cfg));
 
-        $orm = new ORM(
+        return new ORM(
             new Factory($dbal, null, $container, $container),
             self::bootSchema($cfg, $container)
         );
-
-        $orm = $orm->withPromiseFactory($container->get(ProxyFactory::class));
-
-        return $orm;
     }
 
     /**
