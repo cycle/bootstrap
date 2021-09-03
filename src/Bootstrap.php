@@ -33,8 +33,10 @@ final class Bootstrap
 {
     /**
      * @param string $file
-     * @return ORMInterface
+     *
      * @throws Throwable
+     *
+     * @return ORMInterface
      */
     public static function fromConfigFile(string $file): ORMInterface
     {
@@ -51,11 +53,13 @@ final class Bootstrap
     }
 
     /**
-     * Create ORM instance using provided config. Automatically indexes
+     * Create ORM instance using provided config. Automatically indexes.
      *
      * @param Config $cfg
-     * @return ORMInterface
+     *
      * @throws Throwable
+     *
+     * @return ORMInterface
      */
     public static function fromConfig(Config $cfg): ORMInterface
     {
@@ -117,12 +121,13 @@ final class Bootstrap
             return;
         }
 
-        file_put_contents($cfg->getCacheFile(), '<?php return ' . var_export($schema, true) . ';');
+        file_put_contents($cfg->getCacheFile(), '<?php return '.var_export($schema, true).';');
     }
 
     /**
      * @param Config             $cfg
      * @param ContainerInterface $container
+     *
      * @return SchemaInterface
      */
     protected static function bootSchema(Config $cfg, ContainerInterface $container): SchemaInterface

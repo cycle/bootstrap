@@ -25,6 +25,7 @@ final class App
 {
     /**
      * @param ORMInterface $orm
+     *
      * @throws Throwable
      */
     public static function run(ORMInterface $orm): void
@@ -39,15 +40,15 @@ final class App
                     UpdateCommand::class,
                     SyncCommand::class,
                     ListCommand::class,
-                ]
-            ])
+                ],
+            ]),
         ]);
 
         /** @var ScopeInterface $scope */
         $scope = $orm->getFactory()->make(ScopeInterface::class);
 
         $scope->runScope([
-            ORMInterface::class => $orm
+            ORMInterface::class => $orm,
         ], static function () use ($cli): void {
             $cli->start();
         });

@@ -24,10 +24,10 @@ use Throwable;
 
 final class ListCommand extends Command
 {
-    protected const NAME        = 'db:list';
+    protected const NAME = 'db:list';
     protected const DESCRIPTION = 'Get list of available databases, their tables and records count';
-    protected const ARGUMENTS   = [
-        ['db', InputArgument::OPTIONAL, 'Database name']
+    protected const ARGUMENTS = [
+        ['db', InputArgument::OPTIONAL, 'Database name'],
     ];
 
     /**
@@ -60,7 +60,7 @@ final class ListCommand extends Command
             'Prefix:',
             'Status:',
             'Tables:',
-            'Count Records:'
+            'Count Records:',
         ]);
 
         foreach ($databases as $database) {
@@ -73,7 +73,7 @@ final class ListCommand extends Command
                 $database->getName(),
                 $driver->getSource(),
                 $driver->getType(),
-                $database->getPrefix() ?: self::SKIP
+                $database->getPrefix() ?: self::SKIP,
             ];
 
             try {
@@ -99,8 +99,8 @@ final class ListCommand extends Command
     }
 
     /**
-     * @param Table      $grid
-     * @param array      $header
+     * @param Table     $grid
+     * @param array     $header
      * @param Throwable $exception
      */
     private function renderException(Table $grid, array $header, Throwable $exception): void
@@ -110,7 +110,7 @@ final class ListCommand extends Command
             [
                 "<fg=red>{$exception->getMessage()}</fg=red>",
                 self::SKIP,
-                self::SKIP
+                self::SKIP,
             ]
         ));
     }

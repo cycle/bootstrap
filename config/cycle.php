@@ -19,7 +19,7 @@ $config = Cycle\Bootstrap\Config::forDatabase(
 );
 
 // which directory contains our entities
-$config = $config->withEntityDirectory(__DIR__ . DIRECTORY_SEPARATOR);
+$config = $config->withEntityDirectory(__DIR__.DIRECTORY_SEPARATOR);
 
 // log all SQL messages to STDERR
 $config = $config->withLogger(new StderrLogger(true));

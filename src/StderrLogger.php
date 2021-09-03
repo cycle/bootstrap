@@ -38,27 +38,28 @@ final class StderrLogger implements LoggerInterface
     public function log($level, $message, array $context = []): void
     {
         if (!$this->enableColors) {
-            error_log('> ' . $message);
+            error_log('> '.$message);
         }
 
         if ($level === LogLevel::ERROR) {
-            error_log("! \033[31m" . $message . "\033[0m");
+            error_log("! \033[31m".$message."\033[0m");
         } elseif ($level === LogLevel::ALERT) {
-            error_log("! \033[35m" . $message . "\033[0m");
+            error_log("! \033[35m".$message."\033[0m");
         } elseif (strpos($message, 'SHOW') === 0) {
-            error_log("> \033[34m" . $message . "\033[0m");
+            error_log("> \033[34m".$message."\033[0m");
         } else {
             if ($this->isPostgresSystemQuery($message)) {
-                error_log("> \033[90m" . $message . "\033[0m");
+                error_log("> \033[90m".$message."\033[0m");
+
                 return;
             }
 
             if (strpos($message, 'SELECT') === 0) {
-                error_log("> \033[32m" . $message . "\033[0m");
+                error_log("> \033[32m".$message."\033[0m");
             } elseif (strpos($message, 'INSERT') === 0) {
-                error_log("> \033[36m" . $message . "\033[0m");
+                error_log("> \033[36m".$message."\033[0m");
             } else {
-                error_log("> \033[33m" . $message . "\033[0m");
+                error_log("> \033[33m".$message."\033[0m");
             }
         }
     }

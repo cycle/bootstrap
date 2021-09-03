@@ -21,13 +21,14 @@ use Spiral\Tokenizer\ClassesInterface;
 
 final class SyncCommand extends Command
 {
-    protected const NAME        = 'schema:sync';
+    protected const NAME = 'schema:sync';
     protected const DESCRIPTION = 'Sync ORM schema with database (generate tables)';
 
     /**
-     * @param Registry $registry
-     * @param ClassesInterface $cl
+     * @param Registry               $registry
+     * @param ClassesInterface       $cl
      * @param SchemaHandlerInterface $handler
+     *
      * @throws \Throwable
      */
     public function perform(

@@ -24,13 +24,13 @@ use Symfony\Component\Console\Input\InputOption;
 
 final class TableCommand extends Command
 {
-    protected const NAME        = 'db:table';
+    protected const NAME = 'db:table';
     protected const DESCRIPTION = 'Describe table schema of specific database';
     protected const ARGUMENTS = [
-        ['table', InputArgument::REQUIRED, 'Table name']
+        ['table', InputArgument::REQUIRED, 'Table name'],
     ];
-    protected const OPTIONS   = [
-        ['database', 'db', InputOption::VALUE_OPTIONAL, 'Source database', null]
+    protected const OPTIONS = [
+        ['database', 'db', InputOption::VALUE_OPTIONAL, 'Source database', null],
     ];
 
     /**
@@ -81,7 +81,7 @@ final class TableCommand extends Command
             'Database Type:',
             'Abstract Type:',
             'PHP Type:',
-            'Default Value:'
+            'Default Value:',
         ]);
 
         foreach ($schema->getColumns() as $column) {
@@ -96,7 +96,7 @@ final class TableCommand extends Command
                 $this->describeType($column),
                 $this->describeAbstractType($column),
                 $column->getType(),
-                $this->describeDefaultValue($column) ?: self::SKIP
+                $this->describeDefaultValue($column) ?: self::SKIP,
             ]);
         }
 
@@ -120,7 +120,7 @@ final class TableCommand extends Command
             $indexesTable->addRow([
                 $index->getName(),
                 $index->isUnique() ? 'UNIQUE INDEX' : 'INDEX',
-                implode(', ', $index->getColumns())
+                implode(', ', $index->getColumns()),
             ]);
         }
 
@@ -144,7 +144,7 @@ final class TableCommand extends Command
             'Foreign Table:',
             'Foreign Column:',
             'On Delete:',
-            'On Update:'
+            'On Update:',
         ]);
 
         foreach ($foreignKeys as $reference) {
@@ -154,7 +154,7 @@ final class TableCommand extends Command
                 $reference->getForeignTable(),
                 $reference->getForeignKey(),
                 $reference->getDeleteRule(),
-                $reference->getUpdateRule()
+                $reference->getUpdateRule(),
             ]);
         }
 
@@ -163,6 +163,7 @@ final class TableCommand extends Command
 
     /**
      * @param AbstractColumn $column
+     *
      * @return string|null
      */
     protected function describeDefaultValue(AbstractColumn $column): ?string
@@ -182,6 +183,7 @@ final class TableCommand extends Command
 
     /**
      * @param AbstractColumn $column
+     *
      * @return string
      */
     private function describeType(AbstractColumn $column): string
@@ -203,6 +205,7 @@ final class TableCommand extends Command
 
     /**
      * @param AbstractColumn $column
+     *
      * @return string
      */
     private function describeAbstractType(AbstractColumn $column): string

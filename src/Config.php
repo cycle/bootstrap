@@ -75,7 +75,7 @@ final class Config
             return null;
         }
 
-        return $this->cacheDirectory . DIRECTORY_SEPARATOR . 'cycle-schema.php';
+        return $this->cacheDirectory.DIRECTORY_SEPARATOR.'cycle-schema.php';
     }
 
     /**
@@ -90,6 +90,7 @@ final class Config
      * @param string $conn
      * @param string $username
      * @param string $password
+     *
      * @return Config
      */
     public static function forDatabase(
@@ -109,10 +110,10 @@ final class Config
                         'connection' => $conn,
                         'username'   => $username,
                         'password'   => $password,
-                        'reconnect'  => true
-                    ]
-                ]
-            ]
+                        'reconnect'  => true,
+                    ],
+                ],
+            ],
         ]);
 
         return $cfg;
@@ -120,6 +121,7 @@ final class Config
 
     /**
      * @param string $directory
+     *
      * @return Config
      */
     public function withEntityDirectory(string $directory): Config
@@ -136,6 +138,7 @@ final class Config
 
     /**
      * @param string $directory
+     *
      * @return Config
      */
     public function withCacheDirectory(string $directory): Config
@@ -152,6 +155,7 @@ final class Config
 
     /**
      * @param LoggerInterface $logger
+     *
      * @return Config
      */
     public function withLogger(LoggerInterface $logger): Config
@@ -164,6 +168,7 @@ final class Config
 
     /**
      * @param string $conn
+     *
      * @return string
      */
     private function getDriver(string $conn): string

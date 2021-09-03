@@ -35,6 +35,7 @@ final class ShowChanges implements GeneratorInterface
 
     /**
      * @param Registry $registry
+     *
      * @return Registry
      */
     public function run(Registry $registry): Registry
@@ -100,6 +101,7 @@ final class ShowChanges implements GeneratorInterface
 
         if ($table->getStatus() === AbstractTable::STATUS_DECLARED_DROPPED) {
             $this->output->writeln('    - drop table');
+
             return;
         }
 
@@ -172,6 +174,7 @@ final class ShowChanges implements GeneratorInterface
 
     /**
      * @param AbstractTable $table
+     *
      * @return int
      */
     protected function numChanges(AbstractTable $table): int

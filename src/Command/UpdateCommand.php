@@ -21,13 +21,14 @@ use Spiral\Tokenizer\ClassesInterface;
 
 final class UpdateCommand extends Command
 {
-    protected const NAME        = 'schema:update';
+    protected const NAME = 'schema:update';
     protected const DESCRIPTION = 'Update ORM schema based on entity and relation annotations';
 
     /**
-     * @param Registry $registry
-     * @param ClassesInterface $cl
+     * @param Registry               $registry
+     * @param ClassesInterface       $cl
      * @param SchemaHandlerInterface $handler
+     *
      * @throws \Throwable
      */
     public function perform(
