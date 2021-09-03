@@ -33,7 +33,7 @@ final class App
         /** @var Console $cli */
         $cli = $orm->getFactory()->make(Console::class, [
             'config' => new ConsoleConfig([
-                'name'     => 'Cycle Console Toolkit',
+                'name' => 'Cycle Console Toolkit',
                 'commands' => [
                     Database\ListCommand::class,
                     Database\TableCommand::class,

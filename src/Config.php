@@ -75,7 +75,7 @@ final class Config
             return null;
         }
 
-        return $this->cacheDirectory.DIRECTORY_SEPARATOR.'cycle-schema.php';
+        return $this->cacheDirectory . DIRECTORY_SEPARATOR . 'cycle-schema.php';
     }
 
     /**
@@ -97,20 +97,20 @@ final class Config
         string $conn,
         string $username = '',
         string $password = ''
-    ): Config {
+    ): self {
         $cfg = new self();
 
         $cfg->dbalConfig = new DatabaseConfig([
-            'default'     => 'db',
-            'databases'   => ['db' => ['connection' => 'conn']],
+            'default' => 'db',
+            'databases' => ['db' => ['connection' => 'conn']],
             'connections' => [
                 'conn' => [
-                    'driver'  => $cfg->getDriver($conn),
+                    'driver' => $cfg->getDriver($conn),
                     'options' => [
                         'connection' => $conn,
-                        'username'   => $username,
-                        'password'   => $password,
-                        'reconnect'  => true,
+                        'username' => $username,
+                        'password' => $password,
+                        'reconnect' => true,
                     ],
                 ],
             ],
@@ -124,7 +124,7 @@ final class Config
      *
      * @return Config
      */
-    public function withEntityDirectory(string $directory): Config
+    public function withEntityDirectory(string $directory): self
     {
         if (!is_dir($directory)) {
             throw new ConfigException("Invalid entity directory `{$directory}`, directory not found");
@@ -141,7 +141,7 @@ final class Config
      *
      * @return Config
      */
-    public function withCacheDirectory(string $directory): Config
+    public function withCacheDirectory(string $directory): self
     {
         if (!is_dir($directory)) {
             throw new ConfigException("Invalid cache directory `{$directory}`, directory not found");
@@ -158,7 +158,7 @@ final class Config
      *
      * @return Config
      */
-    public function withLogger(LoggerInterface $logger): Config
+    public function withLogger(LoggerInterface $logger): self
     {
         $cfg = clone $this;
         $cfg->logger = $logger;

@@ -50,8 +50,8 @@ final class ShowChanges implements GeneratorInterface
                 if ($table->getComparator()->hasChanges()) {
                     $this->changes[] = [
                         'database' => $registry->getDatabase($e),
-                        'table'    => $registry->getTable($e),
-                        'schema'   => $table,
+                        'table' => $registry->getTable($e),
+                        'schema' => $table,
                     ];
                 }
             }

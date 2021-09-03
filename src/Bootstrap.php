@@ -103,9 +103,7 @@ final class Bootstrap
             self::bootSchema($cfg, $container)
         );
 
-        $orm = $orm->withPromiseFactory($container->get(ProxyFactory::class));
-
-        return $orm;
+        return $orm->withPromiseFactory($container->get(ProxyFactory::class));
     }
 
     /**
@@ -121,7 +119,7 @@ final class Bootstrap
             return;
         }
 
-        file_put_contents($cfg->getCacheFile(), '<?php return '.var_export($schema, true).';');
+        file_put_contents($cfg->getCacheFile(), '<?php return ' . var_export($schema, true) . ';');
     }
 
     /**
