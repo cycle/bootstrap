@@ -22,6 +22,7 @@ final class DefaultSchemaHandler implements SchemaHandlerInterface
 
     /**
      * DefaultSchemaHandler constructor.
+     *
      * @param Config $cfg
      */
     public function __construct(Config $cfg)

@@ -25,6 +25,7 @@ final class App
 {
     /**
      * @param ORMInterface $orm
+     *
      * @throws Throwable
      */
     public static function run(ORMInterface $orm): void
@@ -32,22 +33,22 @@ final class App
         /** @var Console $cli */
         $cli = $orm->getFactory()->make(Console::class, [
             'config' => new ConsoleConfig([
-                'name'     => 'Cycle Console Toolkit',
+                'name' => 'Cycle Console Toolkit',
                 'commands' => [
                     Database\ListCommand::class,
                     Database\TableCommand::class,
                     UpdateCommand::class,
                     SyncCommand::class,
                     ListCommand::class,
-                ]
-            ])
+                ],
+            ]),
         ]);
 
         /** @var ScopeInterface $scope */
         $scope = $orm->getFactory()->make(ScopeInterface::class);
 
         $scope->runScope([
-            ORMInterface::class => $orm
+            ORMInterface::class => $orm,
         ], static function () use ($cli): void {
             $cli->start();
         });

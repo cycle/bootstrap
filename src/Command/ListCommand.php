@@ -18,7 +18,7 @@ use Spiral\Console\Command;
 
 final class ListCommand extends Command
 {
-    protected const NAME        = 'entity:list';
+    protected const NAME = 'entity:list';
     protected const DESCRIPTION = 'List of all available entities and their tables';
 
     /**
@@ -32,7 +32,7 @@ final class ListCommand extends Command
             'Table:',
             'Repository:',
             'Fields:',
-            'Relations:'
+            'Relations:',
         ]);
 
         if ($orm->getSchema()->getRoles() === []) {
@@ -50,6 +50,7 @@ final class ListCommand extends Command
     /**
      * @param SchemaInterface $schema
      * @param string          $role
+     *
      * @return array
      */
     protected function describeEntity(SchemaInterface $schema, string $role): array

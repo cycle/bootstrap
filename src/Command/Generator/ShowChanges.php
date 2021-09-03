@@ -35,6 +35,7 @@ final class ShowChanges implements GeneratorInterface
 
     /**
      * @param Registry $registry
+     *
      * @return Registry
      */
     public function run(Registry $registry): Registry
@@ -49,8 +50,8 @@ final class ShowChanges implements GeneratorInterface
                 if ($table->getComparator()->hasChanges()) {
                     $this->changes[] = [
                         'database' => $registry->getDatabase($e),
-                        'table'    => $registry->getTable($e),
-                        'schema'   => $table,
+                        'table' => $registry->getTable($e),
+                        'schema' => $table,
                     ];
                 }
             }
@@ -172,6 +173,7 @@ final class ShowChanges implements GeneratorInterface
 
     /**
      * @param AbstractTable $table
+     *
      * @return int
      */
     protected function numChanges(AbstractTable $table): int
